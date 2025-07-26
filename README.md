@@ -1,3 +1,5 @@
+> **Note:** This service is a component of the [aSentrX Project](https://github.com/f418me/aSentrX). Please see the main repository for a complete architectural overview.
+
 # aSentrix Truth Social Monitor
 
 This service monitors a specific user account on Truth Social for new posts ("statuses"). When a new status is detected, it is sent to a configurable webhook URL for further processing by another service (e.g., the `asentrx-trade-decision-engine`).
