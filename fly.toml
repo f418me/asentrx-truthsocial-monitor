@@ -1,0 +1,85 @@
+# fly.toml app configuration file generated for asentrx-prd on 2025-06-01T09:34:14+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'asentrx-prd'
+primary_region = 'lax'
+
+[build]
+
+[env]
+  API_VERBOSE_OUTPUT = 'False'
+  FETCH_INTERVAL_SECONDS = '10'
+  INITIAL_SINCE_ID = '114616421679095002'
+  LOGFIRE_ENVIRONMENT = 'prod'
+  LOGFIRE_SERVICE_NAME = 'asentrx'
+  LOG_LEVEL_CONSOLE = 'DEBUG'
+  MODEL= 'google-gla:gemini-2.5-flash-preview-05-20'
+  PROD_EXECUTION = 'True'
+  TARGET_USERNAME = 'realDonaldTrump'
+  SMS_NOTIFICATIONS_ENABLED='True'
+  TWILIO_FROM_NUMBER = '+13204336759'
+  TWILIO_TO_NUMBER = '+41796754690'
+
+  # Generic Trading Settings (applied when topic is 'market', 'tariffs', etc.)
+  # Order Amounts (Positive for BUY/LONG, Negative for SHORT)
+  ORDER_AMOUNT_BUY_HIGH_CONF='0.05'
+  ORDER_AMOUNT_SHORT_HIGH_CONF='-0.05'
+  ORDER_AMOUNT_BUY_MED_CONF='0.02'
+  ORDER_AMOUNT_SHORT_MED_CONF='-0.02'
+
+  # Leverage Settings
+  LEVERAGE_BUY_HIGH_CONF='50'
+  LEVERAGE_SHORT_HIGH_CONF='50'
+  LEVERAGE_BUY_MED_CONF='20'
+  LEVERAGE_SHORT_MED_CONF='20'
+
+  # Confidence Thresholds
+  CONFIDENCE_THRESHOLD_HIGH='0.98'
+  CONFIDENCE_THRESHOLD_MED='0.95'
+
+  # Bitcoin Specific Trading Settings (applied when topic is 'bitcoin')
+  # Order Amounts (Positive for BUY/LONG, Negative for SHORT)
+  ORDER_AMOUNT_BITCOIN_BUY_HIGH_CONF='0.5'
+  ORDER_AMOUNT_BITCOIN_SHORT_HIGH_CONF='-0.1'
+  ORDER_AMOUNT_BITCOIN_BUY_MED_CONF='0.2'
+  ORDER_AMOUNT_BITCOIN_SHORT_MED_CONF='-0.1'
+
+  # Leverage Settings
+  LEVERAGE_BITCOIN_BUY_HIGH_CONF='50'
+  LEVERAGE_BITCOIN_SHORT_HIGH_CONF='20'
+  LEVERAGE_BITCOIN_BUY_MED_CONF='20'
+  LEVERAGE_BITCOIN_SHORT_MED_CONF='10'
+
+  # Confidence Thresholds
+  CONFIDENCE_THRESHOLD_BITCOIN_HIGH='0.9'
+  CONFIDENCE_THRESHOLD_BITCOIN_MED='0.8'
+
+  # Limit Offsets (Trader class applies: BUY_LIMIT = PRICE * (1 + OFFSET), SHORT_LIMIT = PRICE * (1 - OFFSET))
+  LIMIT_OFFSET_BUY='0.005'
+  LIMIT_OFFSET_SHORT='0.005'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  max_machines_running = 1
+  processes = ['app']
+
+[[services]]
+  protocol = ''
+  internal_port = 0
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  max_machines_running = 1
+  ports = []
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
